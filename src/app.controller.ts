@@ -25,7 +25,7 @@ export class AppController {
     return this.appService.getMusic();
   }
   @Get('stream/:id')
-  streamAudio(@Param('id') id: any, @Res() res: Response): any {
+  streamAudio(@Param('id') id: any, @Res() res: any): any {
     return this.appService.streamAudio(id, res);
   }
   @Get('/movie/:id')
