@@ -37,10 +37,4 @@ export class AppController {
   showErrors() {
     return { err_message: 'Lol you got rickrolled' };
   }
-  @Sse('/sse')
-  sse(eventEmitter: EventEmitter): void {
-    eventEmitter.on('login_failed', () => {
-      return 'hello';
-    });
-  }
 }
