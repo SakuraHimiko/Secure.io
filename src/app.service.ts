@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { google } from 'googleapis';
+import { youtube } from '@googleapis/youtube';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as ytdl from 'ytdl-core';
@@ -15,12 +15,12 @@ export class AppService {
     return 'Hello World!';
   }
   async getMusic() {
-    const youtube = google.youtube({
+    const youtubedl = youtube({
       version: 'v3',
       auth: 'AIzaSyCHcTbM0mvsqKpDd01Jhbi08z8Cgf5fQhA',
     });
 
-    const searchResult = await youtube.search.list({
+    const searchResult = await youtubedl.search.list({
       part: ['id', 'snippet'],
       q: 'Nandemonaiya - Kamishiraishi Mone (Maxone Remix) ♪',
       maxResults: 15,
