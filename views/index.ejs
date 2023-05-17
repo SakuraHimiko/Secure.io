@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+    />
+    <title>AniParadise</title>
+  </head>
+
+  <body>
+    <div class="container-fluid shadow-lg">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">Lizzy Loose</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex ms-auto" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+            <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active border-bottom border-2"
+                  aria-current="page"
+                  href="/"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="io-user/signup"
+                  >SignUp</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="io-user/login">Login</a>
+              </li>
+              <!-- <li class="nav-item">
+            <a class="nav-link" href="io-user/logout">Logout</a>
+          </li> -->
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-10 text-center mx-auto">
+          <img
+            class="rounded-circle border border-dark border-4"
+            src="https://datepsychology.com/wp-content/uploads/2022/09/gigachad.jpg"
+            alt="chad"
+            style="width: 300px; background-size: cover; object-fit: cover"
+            height="300px"
+          />
+          <div>
+            <h3>Chad Webapp</h3>
+            <div class="">
+              <h5>Development: <span id="progress">Inprogress</span></h5>
+              <p>Security is Secure as Chad and All user will be safe.</p>
+              <span class="fw-bold">Next level Security and Scalability</span>
+              <div
+                class="col-10 col-md-4 mx-auto mt-5 border border-2 border-primary p-3"
+              >
+                <strong>Added features:</strong>
+                <ul class="list-unstyled">
+                  <li>
+                    User Signin <a href="/io-user/signin">Sign Please UwU</a>
+                  </li>
+                  <li>
+                    User SignUp <a href="/io-user/signup">SignUp Please UwU</a>
+                  </li>
+                  <li>Stream Music <a href="/stream/dQw4w9WgXcQ">Stream</a></li>
+                  <li>Get Stream Music API<a href="/stream/">Stream API</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="container my-5">
+      <h3 class="text-center mb-3">Streamable</h3>
+      <div class="row">
+        <div
+          class="col-12 col-md-8 flex-column flex-md-row justify-content-center text-center mx-auto"
+          id="musicContainer"
+        ></div>
+      </div>
+    </div>
+    <script>
+      const musicContainer = document.querySelector('#musicContainer');
+      fetch('/stream')
+        .then((data) => data.json())
+        .then((music) => {
+          music.items.forEach((el) => {
+            const divElement = document.createElement('div');
+            divElement.classList.add([
+              'display-flex',
+              'justify-content-center',
+            ]);
+            divElement.innerHTML = `<div class="border border-3 border-dark p-2 p-md-0 mb-3 justify-content-center mx-auto text-center">
+            <a href="/stream/${el.id.videoId}" class="text-decoration-none p-3 ">
+              <div class="col-12 col-md-4">
+                <img
+                  src="${el.snippet.thumbnails.high.url}"
+                  alt="image"
+                  style="width: 100px"
+                />
+              </div>
+              <div class="col-12 col-md-8 mt-3 mt-md-0">
+                <h4>${el.snippet.title}</h4>
+                <p>Uploader: <span>${el.snippet.channelTitle}</span></p>
+                <div class="col-12 text-truncate">
+                  <span class=""
+                    >${el.snippet.description}</span
+                  >
+                </div>
+              </div>
+            </a>
+          </div>`;
+            musicContainer.append(divElement);
+          });
+        });
+    </script>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+</html>

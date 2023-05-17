@@ -1,0 +1,9 @@
+.hero-div{
+    background: url(../img/rodolfo-sanches-carvalho-9W-OGQjQwlk-unsplash.jpg);
+}
+.overlay{
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class=" container-fluid">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand fw-bold" href="#">Lizzy Loose</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex ms-auto" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </form>
+                <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="">Login</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+      </div>
+    </div>
+    <div class="container-fluid m-0 p-0 vh-100 position-relative">
+      <img src="../img/rodolfo-sanches-carvalho-9W-OGQjQwlk-unsplash.jpg" class="w-100 m-0 p-0 opacity-75 h-100" alt="image">
+      <div class="overlay">
+        <h3 class=" text-center">Sunflower are best</h3>
+        <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate dolorum assumenda, doloribus quisquam sequi non omnis itaque culpa recusandae cum eum voluptate. Ipsum corporis quaerat adipisci velit molestiae et, incidunt deserunt, vel, aspernatur pariatur temporibus at. Quas eveniet commodi ipsa!</p>
+      </div>
+    </div>
+
+</body>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./script.js"></script>
+</html>
+
+
+
+
+
+
+
+
+else {
+              dbconf.query(
+                `INSERT INTO users (first_name,last_name,full_name,password) VALUES ("${firstName}","${lastName}","${userName}","${securedPassword}");`,
+                (error, result, feilds) => {
+                  if (!error) {
+                    response.redirect("/login");
+                  }
+                  console.log(result);
+                }
+              );
+              console.log("signUp success");
+              connection.end();
+            }
+
+////auth code
+dbconf.query(
+      `SELECT full_name,password from users where full_name="${userName}"`,
+      (error, result, fields) => {
+        if (error) {
+          console.log("login failed" + error);
+        }
+        // else if(result[0].length === 0){
+        //     res.redirect("/error");
+        //     res.status(403);
+        // }
+        else {
+          try {
+            bcrypt.compare(userPassword, result[0].password, (err, result) => {
+              if (result) {
+                res.redirect("/?auth=true");
+                success = true;
+              } else {
+                res.send(
+                  "User Name or Password is wrong Or doesn't exist in the database!"
+                );
+              }
+            });
+          } catch (error) {
+            if (error) {
+              res.status(403);
+              res.redirect("/error");
+            }
+          }
+        }
+      }
+    );

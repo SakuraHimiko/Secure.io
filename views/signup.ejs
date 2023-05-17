@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+  <title>Sign Up For Awsome Things</title>
+</head>
+
+<body>
+  
+  <div class="container-fluid shadow-lg">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">Lizzy Loose</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="d-flex ms-auto" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active border-bottom border-2" aria-current="page" href="/signup">SignUp</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  </div>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="bsToast">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img id="assistantImage" class="rounded me-2" width="40px" alt="assistant">
+        <strong class="me-auto" id="assistantName">Assistant</strong>
+        <small>Just Now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="toastEl">
+
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="col-11 col-lg-5 mx-auto mt-5">
+      <form action="" class="mx-auto border border-3 rounded-3 p-5" id="userData" method="post">
+        <h3 class=" text-center">Sign Up To Start Your Journey</h3>
+        <div class=" d-flex justify-content-between mb-3">
+          <div class=" flex-grow-1 me-2">
+            <label for="" class="form-label">First Name</label>
+            <input id="user_f_name" type="text" name="user_f_name" class=" form-control">
+          </div>
+          <div class=" flex-grow-1">
+            <label for="" class=" form-label">Last Name</label>
+            <input id="user_l_name" type="text" name="user_l_name" class=" form-control">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Your Name</label>
+          <input type="text" name="user_name" id="userNameInput" class=" form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Your Password</label>
+          <input type="password" name="user_password" class=" form-control" id="userPasswordInput" required>
+        </div>
+        <div class=" text-center">
+          <button class=" btn btn-dark" id="userBtn" name="user_click">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+<script src="/js/signup.js"></script>
+<% if(failed){ %>
+      
+  <script>
+    
+    toastEl.innerHTML = `<p class='text-break'>The Username you enter is Exist in Ani database (¬_¬")<img src='/img/pout-girl.gif' width='40px' class='ms-auto'></p>`
+    bsToast.show()
+  </script>
+} 
+  
+<%} %>
+</html>
