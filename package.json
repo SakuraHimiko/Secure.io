@@ -43,7 +43,6 @@
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "youtube-dl-exec": "^2.4.1",
     "ytdl": "^1.4.1",
     "ytdl-core": "^4.11.4"
   },
