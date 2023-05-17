@@ -1,4 +1,9 @@
-import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  ImATeapotException,
+} from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 
 @Catch()
@@ -12,6 +17,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       return response.render('error', {
         err_message: 'Why You Break it?Something bad will happen',
         error: `From Assistant: Did you just changed the cookie?`,
+      });
+    }
+    if (exception.message.includes("I'm a teapot")) {
+      return response.render('error', {
+        err_message: 'Bro You need to SignUp or SignIn',
+        error: `Possible Error: ${exception.message}`,
       });
     }
     response.render('error', {

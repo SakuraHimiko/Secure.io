@@ -46,14 +46,12 @@ export class IoUserService {
       user_name,
       user_password,
     });
-    const token = await this.jwtService.signAsync(
-      {
-        name: this.AesHasher.encrypt(user_name),
-      },
-      { expiresIn: '7d' },
-    );
+    const token = await this.jwtService.signAsync({
+      name: this.AesHasher.encrypt(user_name),
+    });
     const encryptedToken = this.AesHasher.encrypt(token);
     return {
+      login_true: true,
       token: 'Bearer ' + encryptedToken,
       message: `Goodjob ${user_f_name} Senpai,Thank you for join with us!UwU`,
     };
@@ -81,12 +79,9 @@ export class IoUserService {
       };
     }
 
-    const token = await this.jwtService.signAsync(
-      { name: this.AesHasher.encrypt(user.user_name) },
-      {
-        expiresIn: '7d',
-      },
-    );
+    const token = await this.jwtService.signAsync({
+      name: this.AesHasher.encrypt(user.user_name),
+    });
     const encryptedToken = this.AesHasher.encrypt(token);
     return {
       token: 'Bearer ' + encryptedToken,
