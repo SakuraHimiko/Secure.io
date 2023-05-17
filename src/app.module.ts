@@ -14,6 +14,7 @@ import { MongoExceptionFilter } from './exceptions/mongo_exception.handler';
 import { GlobalExceptionFilter } from './exceptions/typeerror_exception.handler';
 import { NotFoundExceptionHandler } from './exceptions/notfound_exception.handler';
 import { BowlFishSecret } from './secret/unknown.secret';
+import { BadRequestExceptionHandler } from './exceptions/badrequest.exception';
 
 @Module({
   imports: [
@@ -44,6 +45,10 @@ import { BowlFishSecret } from './secret/unknown.secret';
     {
       provide: APP_FILTER,
       useClass: NotFoundExceptionHandler,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: BadRequestExceptionHandler,
     },
     AppService,
     CryptoService,
