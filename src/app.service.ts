@@ -10,7 +10,9 @@ import * as ytdl from 'ytdl-core';
 import { Movie } from './models/movie.schema';
 @Injectable()
 export class AppService {
-  constructor(@InjectModel(Movie.name) private movieModel: Model<Movie>) {}
+  constructor(
+    @InjectModel(Movie.name, 'movie_io') private movieModel: Model<Movie>,
+  ) {}
   getHello(): string {
     return 'Hello World!';
   }

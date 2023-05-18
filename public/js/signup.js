@@ -72,8 +72,11 @@ userBtn.addEventListener('click', async (e) => {
         toastEl.innerHTML = `<p>${resData.message}</p>`;
         bsToast.show();
       } else if (resData.login_true) {
-        toastEl.innerHTML = `<p>${resData.login_message}</p>`;
+        toastEl.innerHTML = `<p>${resData.message}.Now we will redirect you to index page</p>`;
         bsToast.show();
+        setTimeout(() => {
+          location.href = '/feed';
+        }, 5000);
       } else if (resData.failed_true) {
         toastEl.innerHTML = `<p>${resData.login_message}</p>`;
         bsToast.show();

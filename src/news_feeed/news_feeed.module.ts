@@ -4,6 +4,6 @@ import { NewsFeeedController } from './news_feeed.controller';
 
 @Module({
   controllers: [NewsFeeedController],
-  providers: [NewsFeeedService]
+  providers: [NewsFeeedService],
 })
 export class NewsFeeedModule {}

@@ -31,5 +31,8 @@ export class IO_Users {
 
   @Prop({ select: false })
   user_password_change_expiresin: Date;
+
+  @Prop({ default: true })
+  active: boolean;
 }
 export const IO_UsersSchema = SchemaFactory.createForClass(IO_Users);

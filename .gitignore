@@ -36,5 +36,5 @@ lerna-debug.log*
 
 #sensitive data
 
-*.config.ts
-*.secret.ts
+*.config
+*.secret

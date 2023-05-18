@@ -13,12 +13,21 @@ import { ResponseSender } from 'src/helpers/response.helper';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://Rize:367317792Root@cluster0.alqc92x.mongodb.net/movie_io_db?retryWrites=true&w=majority',
+    MongooseModule.forFeatureAsync(
+      [
+        {
+          name: IO_Users.name,
+          useFactory: () => {
+            const schema = IO_UsersSchema;
+            schema.pre(/^find/, function () {
+              console.log('Hello from pre save');
+            });
+            return schema;
+          },
+        },
+      ],
+      'movie_io',
     ),
-    MongooseModule.forFeature([
-      { name: IO_Users.name, schema: IO_UsersSchema },
-    ]),
     PassportModule.register({
       session: true,
     }),

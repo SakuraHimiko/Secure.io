@@ -22,9 +22,6 @@ export class NewsFeeedController {
     return this.newsFeeedService.create(createNewsFeeedDto);
   }
 
-  @Sse()
-  findAll(@Res() res: any) {}
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.newsFeeedService.findOne(+id);

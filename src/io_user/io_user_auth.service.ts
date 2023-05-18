@@ -2,21 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
-import { LocalStrategy } from 'src/auth/passport.strategy';
 import { Argon2Interface } from 'src/helpers/argon.helper';
 import { IO_Users } from 'src/models/user.schema';
 import { CryptoService } from 'src/helpers/aes.helpers';
-import { ResponseSender } from 'src/helpers/response.helper';
 
 @Injectable()
 export class IoUserService {
   constructor(
-    @InjectModel(IO_Users.name) private Io_UserSchema: Model<IO_Users>,
+    @InjectModel(IO_Users.name, 'movie_io')
+    private Io_UserSchema: Model<IO_Users>,
     private AesHasher: CryptoService,
     private ArgonHasher: Argon2Interface,
-    private PassportAuthenticator: LocalStrategy,
     private jwtService: JwtService,
-    private responseSender: ResponseSender,
   ) {}
   async saveUserToDatabase(userinfo: object | any) {
     if (!userinfo) {

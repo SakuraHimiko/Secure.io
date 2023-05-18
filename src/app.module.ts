@@ -16,14 +16,25 @@ import { NotFoundExceptionHandler } from './exceptions/notfound_exception.handle
 import { BadRequestExceptionHandler } from './exceptions/badrequest.exception';
 import { JwtModule } from '@nestjs/jwt';
 import { BowlFishSecret } from './secret/unknown.secret';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
     IoUserModule,
     MongooseModule.forRoot(
-      'mongodb+srv://Rize:367317792Root@cluster0.alqc92x.mongodb.net/movie_io_db?retryWrites=true&w=majority',
+      `mongodb+srv://Rize:367317792root404@cluster0.alqc92x.mongodb.net/movie_io_db?retryWrites=true&w=majority`,
+      { connectionName: 'movie_io' },
     ),
-    MongooseModule.forFeature([{ name: Movie.name, schema: MovieSchema }]),
+    MongooseModule.forRoot(
+      'mongodb+srv://Rize:367317792root404@cluster0.alqc92x.mongodb.net/movie_io_admin?retryWrites=true&w=majority',
+      {
+        connectionName: 'movie_io_admin',
+      },
+    ),
+    MongooseModule.forFeature(
+      [{ name: Movie.name, schema: MovieSchema }],
+      'movie_io',
+    ),
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 10,
@@ -36,6 +47,7 @@ import { BowlFishSecret } from './secret/unknown.secret';
     //   transport: `stmps://${BowlFishSecret.MAIL_USERNAME}`,
     // }),
     NewsFeeedModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [

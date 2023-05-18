@@ -6,7 +6,7 @@ import { BowlFishSecret } from 'src/secret/unknown.secret';
 export class CryptoService {
   private readonly algorithm = 'aes-256-cbc';
   private readonly ivLength = 16;
-  private readonly key = BowlFishSecret.JWT_SECRET;
+  private readonly key = BowlFishSecret.AES_SECRET;
 
   encrypt(text: string): string {
     const iv = randomBytes(this.ivLength);
