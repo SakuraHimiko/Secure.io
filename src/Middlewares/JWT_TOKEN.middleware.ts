@@ -18,6 +18,6 @@ export class JwtValidator implements NestMiddleware {
     const decryptedToken = this.AesHelper.decrypt(token);
     const verify = this.jwtService.verify(decryptedToken);
     verify.iat < Date.now() ? next() : new ImATeapotException();
-    // verify ? next() : new ImATeapotException();
+    verify ? next() : new ImATeapotException();
   }
 }

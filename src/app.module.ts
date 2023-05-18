@@ -22,6 +22,7 @@ import { BadRequestExceptionHandler } from './exceptions/badrequest.exception';
 import { JwtModule } from '@nestjs/jwt';
 import { BowlFishSecret } from './secret/unknown.secret';
 import { AdminModule } from './admin/admin.module';
+import { AdminController } from './admin/admin.controller';
 
 @Module({
   imports: [
@@ -93,6 +94,6 @@ export class AppModule implements NestModule {
         path: 'admin',
         method: RequestMethod.POST,
       })
-      .forRoutes('/admin');
+      .forRoutes(AdminController);
   }
 }
