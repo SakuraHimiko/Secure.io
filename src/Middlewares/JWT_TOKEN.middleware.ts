@@ -1,4 +1,9 @@
-import { ImATeapotException, Injectable, NestMiddleware } from '@nestjs/common';
+import {
+  ImATeapotException,
+  Injectable,
+  Logger,
+  NestMiddleware,
+} from '@nestjs/common';
 import { Response, NextFunction } from 'express';
 import { CryptoService } from 'src/helpers/aes.helpers';
 import { JwtService } from '@nestjs/jwt';
@@ -17,7 +22,10 @@ export class JwtValidator implements NestMiddleware {
     const token = cookie.split(' ')[1];
     const decryptedToken = this.AesHelper.decrypt(token);
     const verify = this.jwtService.verify(decryptedToken);
-    verify.iat < Date.now() ? next() : new ImATeapotException();
-    verify ? next() : new ImATeapotException();
+    if (!verify || verify.iat < Date.now()) {
+      Logger.log('its being so long');
+      throw new ImATeapotException();
+    }
+    next();
   }
 }
