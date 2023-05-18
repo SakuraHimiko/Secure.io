@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
@@ -82,6 +87,12 @@ import { AdminModule } from './admin/admin.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtValidator).forRoutes('/feed');
+    consumer
+      .apply(JwtValidator)
+      .exclude({
+        path: 'admin',
+        method: RequestMethod.POST,
+      })
+      .forRoutes('/admin');
   }
 }

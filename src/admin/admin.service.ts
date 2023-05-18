@@ -27,16 +27,23 @@ export class AdminService {
     });
   }
 
-  async validateAdmin(verifyAdminDto: VerifyAdminDto): Promise<VerifyAdminDto> {
+  async validateAdmin(verifyAdminDto: VerifyAdminDto): Promise<any> {
     const adminEmail = verifyAdminDto.email;
     const adminPassword = verifyAdminDto.password;
-    const adminDetail = await this.AdminSchema.findOne({ email: adminEmail });
+    const adminDetail = await this.AdminSchema.findOne({
+      email: adminEmail,
+    }).select('+password');
     const password = adminDetail.password;
     const isValid = this.ArgonHasher.comparePassword(password, adminPassword);
     if (!isValid) {
       throw new HttpException('Sorry Admin!Your password is wrong', 400);
     }
-    return adminDetail;
+    const role = this.AesHasher.encrypt(adminDetail.role);
+    const token = await this.jwtService.signAsync({
+      id: adminDetail._id,
+      role: role,
+    });
+    return { token: `Bearer ` + token, detail: adminDetail };
   }
 
   async createAdmin(createAdmin: CreateAdminDto): Promise<object> {
@@ -60,7 +67,7 @@ export class AdminService {
   }
 
   async deleteUser(): Promise<object> {
-    const users = await this.IO_User.deleteMany();
+    const users = await this.AdminSchema.deleteMany();
     return users;
   }
   async findOne(id: number) {

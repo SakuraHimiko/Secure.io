@@ -9,7 +9,7 @@ export class AdminRoleGuard implements CanActivate {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest();
     const response = ctx.getResponse();
-
+    
     return true;
   }
 }

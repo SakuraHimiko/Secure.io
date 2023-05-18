@@ -16,7 +16,10 @@ import { UpdateNewsFeeedDto } from './dto/update-news_feeed.dto';
 @Controller('feed')
 export class NewsFeeedController {
   constructor(private readonly newsFeeedService: NewsFeeedService) {}
-
+  @Get()
+  getData() {
+    return this.newsFeeedService.findAll();
+  }
   @Post()
   create(@Body() createNewsFeeedDto: CreateNewsFeeedDto) {
     return this.newsFeeedService.create(createNewsFeeedDto);

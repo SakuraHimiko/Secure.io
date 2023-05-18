@@ -35,6 +35,6 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 #sensitive data
-
+src/admin.*
 *.config
 *.secret

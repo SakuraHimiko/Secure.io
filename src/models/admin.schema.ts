@@ -4,7 +4,7 @@ export class AdminModel {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ select: false, required: true })

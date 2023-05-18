@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { VerifyAdminDto } from './dto/verify_admin.dto';
@@ -17,8 +18,13 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Post()
-  create(@Body() verifyAdminDto: VerifyAdminDto) {
-    return this.adminService.validateAdmin(verifyAdminDto);
+  async verifyAdmin(
+    @Body() verifyAdminDto: VerifyAdminDto,
+    @Res({ passthrough: true }) res: any,
+  ) {
+    const data = await this.adminService.validateAdmin(verifyAdminDto);
+    res.cookie('zzUvB33_admin', data.token);
+    return data;
   }
   @Post('addUser')
   createAdmin(@Body() createAdminDto: CreateAdminDto) {
