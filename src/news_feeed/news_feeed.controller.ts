@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  Sse,
+  Res,
 } from '@nestjs/common';
 import { NewsFeeedService } from './news_feeed.service';
 import { CreateNewsFeeedDto } from './dto/create-news_feeed.dto';
@@ -20,10 +22,8 @@ export class NewsFeeedController {
     return this.newsFeeedService.create(createNewsFeeedDto);
   }
 
-  @Get()
-  findAll() {
-    return this.newsFeeedService.findAll();
-  }
+  @Sse()
+  findAll(@Res() res: any) {}
 
   @Get(':id')
   findOne(@Param('id') id: string) {
