@@ -15,6 +15,7 @@ import { VerifyAdminDto } from './dto/verify_admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { CreateAdminDto } from './dto/create_admin.dto';
 import { AdminRoleGuard } from 'src/admin_role/admin_role.guard';
+import { MovieDTO } from 'src/dto/movie.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -31,6 +32,11 @@ export class AdminController {
   showProductInfo(@Param('id') id: string) {
     return this.adminService.getMovieInfo(id);
   }
+
+  @Post('/products/addProducts')
+  addProducts(products: MovieDTO) {
+    return this.adminService.insertProducts(products);
+  }
   @Post()
   async verifyAdmin(
     @Body() verifyAdminDto: VerifyAdminDto,
@@ -40,6 +46,7 @@ export class AdminController {
     res.cookie('zzUvB33_admin', data.token);
     return data;
   }
+  @UseGuards(AdminRoleGuard)
   @Post('addUser')
   createAdmin(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.createAdmin(createAdminDto);
@@ -61,7 +68,7 @@ export class AdminController {
   @UseGuards(AdminRoleGuard)
   @Get('manageUser/:id/deactivate')
   findUserAndDelete(@Param('id') id: string) {
-    return this.adminService.findOne(+id);
+    return this.adminService.findOne(id);
   }
 
   @UseGuards(AdminRoleGuard)

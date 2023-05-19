@@ -11,6 +11,7 @@ import { CreateAdminDto } from './dto/create_admin.dto';
 import { IO_Users } from 'src/models/user.schema';
 import { SignUpDto } from 'src/io_user/dto/signup.dto';
 import { Movie } from 'src/models/movie.schema';
+import { MovieDTO } from 'src/dto/movie.dto';
 
 @Injectable()
 export class AdminService {
@@ -37,9 +38,14 @@ export class AdminService {
     return { result: totalMovies.length, movies: totalMovies };
   }
 
-  async getMovieInfo(id) {
+  async getMovieInfo(id: string) {
     const movieInfo = await this.MovieSchema.findById(id);
     return movieInfo;
+  }
+
+  async insertProducts(products: MovieDTO) {
+    const insertedData = this.MovieSchema.create(products);
+    return insertedData;
   }
   async validateAdmin(verifyAdminDto: VerifyAdminDto): Promise<any> {
     const adminEmail = verifyAdminDto.email;
@@ -100,7 +106,7 @@ export class AdminService {
     return users;
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const user = await this.IO_User.findById(id);
     user.active = false;
     return user;

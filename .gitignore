@@ -1,7 +1,8 @@
 # compiled output
 /dist
 /node_modules
-/src/secret
+
+
 # Logs
 logs
 *.log
@@ -37,4 +38,3 @@ lerna-debug.log*
 #sensitive data
 src/admin.*
 *.config
-unknown.secret.ts
