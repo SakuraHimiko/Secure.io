@@ -29,11 +29,11 @@ import { AdminJwtValidator } from './Middlewares/Admin_JWT.middleware';
   imports: [
     IoUserModule,
     MongooseModule.forRoot(
-      `mongodb+srv://Rize:367317792root404@cluster0.alqc92x.mongodb.net/movie_io_db?retryWrites=true&w=majority`,
+      `mongodb+srv://${BowlFishSecret.MONGO_DATABASE}@cluster0.alqc92x.mongodb.net/movie_io_db?retryWrites=true&w=majority`,
       { connectionName: 'movie_io' },
     ),
     MongooseModule.forRoot(
-      'mongodb+srv://Rize:367317792root404@cluster0.alqc92x.mongodb.net/movie_io_admin?retryWrites=true&w=majority',
+      `mongodb+srv://${BowlFishSecret.MONGO_DATABASE}@cluster0.alqc92x.mongodb.net/movie_io_admin?retryWrites=true&w=majority`,
       {
         connectionName: 'movie_io_admin',
       },
