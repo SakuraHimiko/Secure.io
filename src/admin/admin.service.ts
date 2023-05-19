@@ -10,6 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateAdminDto } from './dto/create_admin.dto';
 import { IO_Users } from 'src/models/user.schema';
 import { SignUpDto } from 'src/io_user/dto/signup.dto';
+import { Movie } from 'src/models/movie.schema';
 
 @Injectable()
 export class AdminService {
@@ -18,6 +19,8 @@ export class AdminService {
     private AdminSchema: Model<AdminModel>,
     @InjectModel(IO_Users.name, 'movie_io')
     private IO_User: Model<IO_Users>,
+    @InjectModel(Movie.name, 'movie_io')
+    private MovieSchema: Model<Movie>,
     private AesHasher: CryptoService,
     private ArgonHasher: Argon2Interface,
     private jwtService: JwtService,
@@ -27,22 +30,33 @@ export class AdminService {
     });
   }
 
+  async showDashboardInfo() {
+    const totalMovies = await this.MovieSchema.find().limit(15);
+    return { result: totalMovies.length, movies: totalMovies };
+  }
   async validateAdmin(verifyAdminDto: VerifyAdminDto): Promise<any> {
     const adminEmail = verifyAdminDto.email;
     const adminPassword = verifyAdminDto.password;
     const adminDetail = await this.AdminSchema.findOne({
       email: adminEmail,
     }).select('+password');
+    if (!adminDetail) {
+      throw new HttpException(
+        `Sorry there has no account with ${adminEmail}`,
+        400,
+      );
+    }
     const password = adminDetail.password;
     const isValid = this.ArgonHasher.comparePassword(password, adminPassword);
     if (!isValid) {
       throw new HttpException('Sorry Admin!Your password is wrong', 400);
     }
     const role = this.AesHasher.encrypt(adminDetail.role);
-    const token = await this.jwtService.signAsync({
+    const tokenRaw = await this.jwtService.signAsync({
       id: adminDetail._id,
       role: role,
     });
+    const token = this.AesHasher.encrypt(tokenRaw);
     return { token: `Bearer ` + token, detail: adminDetail };
   }
 
@@ -51,22 +65,27 @@ export class AdminService {
     const email = createAdmin.email;
     const password = createAdmin.password;
     const hashedPassword = await this.ArgonHasher.hashPassword(password);
-    const role = createAdmin.role;
+    const roleRaw = createAdmin.role;
     const returnInfo = await this.AdminSchema.create({
       name: name,
       email: email,
       password: hashedPassword,
+      role: roleRaw,
+    });
+    const role = this.AesHasher.encrypt(returnInfo.role);
+    const tokenRaw = await this.jwtService.signAsync({
+      id: returnInfo._id,
       role: role,
     });
-    returnInfo.role = this.AesHasher.encrypt(role);
-    return returnInfo;
+    const token = this.AesHasher.encrypt(tokenRaw);
+    return { token: `Bearer ` + token, detail: returnInfo };
   }
   async findAll() {
     const users = await this.AdminSchema.find().limit(20);
     return users;
   }
 
-  async deleteUser(): Promise<object> {
+  async manageUser(): Promise<object> {
     const users = await this.AdminSchema.deleteMany();
     return users;
   }

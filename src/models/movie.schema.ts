@@ -1,6 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({
+  toJSON: {
+    virtuals: true,
+  },
+})
 export class Movie {
   @Prop({ required: true, unique: true })
   name: string;
@@ -30,4 +34,6 @@ export class Movie {
   trailer: string;
 }
 
-export const MovieSchema = SchemaFactory.createForClass(Movie);
+const MovieSchema = SchemaFactory.createForClass(Movie);
+
+export { MovieSchema };

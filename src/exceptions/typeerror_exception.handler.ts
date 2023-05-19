@@ -12,7 +12,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
-    console.log(exception);
     if (exception.message.includes('wrong final block length')) {
       return response.render('error', {
         err_message: 'Why You Break it?Something bad will happen',
@@ -24,8 +23,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         err_message: 'Bro You need to SignUp or SignIn',
         error: `Possible Error: ${exception.message}`,
       });
+    } else {
+      return response.json({
+        err_message: exception.message,
+        failed_login: true,
+      });
     }
-    response.render('error', {
+    return response.render('error', {
       err_message: 'Why You Break it?Something bad will happen',
       error: `Possible Error: ${exception.message}`,
     });

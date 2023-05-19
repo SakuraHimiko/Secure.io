@@ -17,6 +17,10 @@ import { CreateAdminDto } from './dto/create_admin.dto';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
+  @Get()
+  showDashboard() {
+    return this.adminService.showDashboardInfo();
+  }
   @Post()
   async verifyAdmin(
     @Body() verifyAdminDto: VerifyAdminDto,
@@ -30,27 +34,26 @@ export class AdminController {
   createAdmin(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.createAdmin(createAdminDto);
   }
-  @Get()
+  @Get('/findAll')
   findAll() {
     return this.adminService.findAll();
   }
-  @Get('manageUser')
+  @Get('manageUsers')
   manageUser() {
-    return this.adminService.deleteUser();
+    return this.adminService.manageUser();
   }
 
-  @Get('manageUser/:id/delete')
-  @Get(':id')
+  @Get('manageUser/:id/deactivate')
   findUserAndDelete(@Param('id') id: string) {
     return this.adminService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('updateAdmin/:id')
   update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
     return this.adminService.update(+id, updateAdminDto);
   }
 
-  @Delete(':id')
+  @Delete('deleteAdmin/:id')
   remove(@Param('id') id: string) {
     return this.adminService.remove(id);
   }

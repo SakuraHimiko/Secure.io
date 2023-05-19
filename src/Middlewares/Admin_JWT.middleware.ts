@@ -1,4 +1,5 @@
 import {
+  HttpException,
   ImATeapotException,
   Injectable,
   Logger,
@@ -9,25 +10,22 @@ import { CryptoService } from 'src/helpers/aes.helpers';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class JwtValidator implements NestMiddleware {
+export class AdminJwtValidator implements NestMiddleware {
   constructor(
     private AesHelper: CryptoService,
     private jwtService: JwtService,
   ) {}
-  async use(req: any, res: Response, next: NextFunction) {
-    if (!req.cookies.token) {
-      throw new ImATeapotException();
+  use(req: any, res: Response, next: NextFunction) {
+    if (!req.cookies.zzUvB33_admin) {
+      throw new HttpException('Dear Admin Please Login.', 401);
     }
 
-    const cookie = req.cookies.token;
-    console.log(cookie);
+    const cookie = req.cookies.zzUvB33_admin;
     const token = cookie.split(' ')[1];
     const decryptedToken = this.AesHelper.decrypt(token);
-    const verify = await this.jwtService.verify(decryptedToken);
-
-
-    if (!verify || verify.iat < Date.now()) {
-      throw new ImATeapotException();
+    const verify = this.jwtService.verify(decryptedToken);
+    if (!verify || !(verify.iat < Date.now())) {
+      throw new HttpException('Dear Admin Please Login.', 401);
     }
     next();
   }

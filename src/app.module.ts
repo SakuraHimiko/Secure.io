@@ -23,6 +23,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { BowlFishSecret } from './secret/unknown.secret';
 import { AdminModule } from './admin/admin.module';
 import { AdminController } from './admin/admin.controller';
+import { AdminJwtValidator } from './Middlewares/Admin_JWT.middleware';
 
 @Module({
   imports: [
@@ -89,7 +90,7 @@ import { AdminController } from './admin/admin.controller';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(JwtValidator)
+      .apply(AdminJwtValidator)
       .exclude({
         path: 'admin',
         method: RequestMethod.POST,
