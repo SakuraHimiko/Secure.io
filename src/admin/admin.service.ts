@@ -30,9 +30,16 @@ export class AdminService {
     });
   }
 
-  async showDashboardInfo() {
-    const totalMovies = await this.MovieSchema.find().limit(15);
+  async showDashboardInfo(limit?: number, skip?: number) {
+    const totalMovies = await this.MovieSchema.find()
+      .limit(+limit ? limit : 11)
+      .skip(skip ? skip : undefined);
     return { result: totalMovies.length, movies: totalMovies };
+  }
+
+  async getMovieInfo(id) {
+    const movieInfo = await this.MovieSchema.findById(id);
+    return movieInfo;
   }
   async validateAdmin(verifyAdminDto: VerifyAdminDto): Promise<any> {
     const adminEmail = verifyAdminDto.email;
@@ -51,7 +58,7 @@ export class AdminService {
     if (!isValid) {
       throw new HttpException('Sorry Admin!Your password is wrong', 400);
     }
-    const role = this.AesHasher.encrypt(adminDetail.role);
+    const role = adminDetail.role;
     const tokenRaw = await this.jwtService.signAsync({
       id: adminDetail._id,
       role: role,
@@ -72,23 +79,27 @@ export class AdminService {
       password: hashedPassword,
       role: roleRaw,
     });
-    const role = this.AesHasher.encrypt(returnInfo.role);
+    const role = returnInfo.role;
     const tokenRaw = await this.jwtService.signAsync({
       id: returnInfo._id,
       role: role,
     });
     const token = this.AesHasher.encrypt(tokenRaw);
-    return { token: `Bearer ` + token, detail: returnInfo };
+    return { zzUvB33_admin: `Bearer ` + token, detail: returnInfo };
   }
-  async findAll() {
-    const users = await this.AdminSchema.find().limit(20);
+  async findAll(limit?: number, skip?: number) {
+    const users = await this.AdminSchema.find()
+      .limit(20)
+      .limit(+limit ? limit : 11)
+      .skip(skip ? skip : undefined);
     return users;
   }
 
   async manageUser(): Promise<object> {
-    const users = await this.AdminSchema.deleteMany();
+    const users = await this.IO_User.find();
     return users;
   }
+
   async findOne(id: number) {
     const user = await this.IO_User.findById(id);
     user.active = false;

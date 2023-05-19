@@ -1,12 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 export class AdminModel {
-  @Prop({
-    required: true,
-    set: (name: string) => {
-      name.trim();
-    },
-  })
+  @Prop({ required: true })
   name: string;
 
   @Prop({ required: true, unique: true })
