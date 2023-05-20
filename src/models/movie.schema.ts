@@ -13,7 +13,6 @@ export class Movie {
   imdb: number;
 
   @Prop({ required: true })
-  imdb: number;
   date: string;
 
   @Prop({ required: true })
