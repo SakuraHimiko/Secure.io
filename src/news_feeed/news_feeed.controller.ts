@@ -8,6 +8,7 @@ import {
   Delete,
   Sse,
   Res,
+  Render,
 } from '@nestjs/common';
 import { NewsFeeedService } from './news_feeed.service';
 import { CreateNewsFeeedDto } from './dto/create-news_feeed.dto';
@@ -17,6 +18,7 @@ import { UpdateNewsFeeedDto } from './dto/update-news_feeed.dto';
 export class NewsFeeedController {
   constructor(private readonly newsFeeedService: NewsFeeedService) {}
   @Get()
+  @Render('newsfeed')
   getData() {
     return this.newsFeeedService.findAll();
   }

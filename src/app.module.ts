@@ -24,6 +24,7 @@ import { BowlFishSecret } from './secret/unknown.secret';
 import { AdminModule } from './admin/admin.module';
 import { AdminController } from './admin/admin.controller';
 import { AdminJwtValidator } from './Middlewares/Admin_JWT.middleware';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -50,9 +51,15 @@ import { AdminJwtValidator } from './Middlewares/Admin_JWT.middleware';
       secret: BowlFishSecret.JWT_SECRET,
       signOptions: { expiresIn: '7d' },
     }),
-    // MailerModule.forRoot({
-    //   transport: `stmps://${BowlFishSecret.MAIL_USERNAME}`,
-    // }),
+    MailerModule.forRoot({
+      transport: {
+        host: '',
+        auth: {
+          user: '',
+          pass: '',
+        },
+      },
+    }),
     NewsFeeedModule,
     AdminModule,
   ],
