@@ -9,6 +9,7 @@ import {
 import { Response, NextFunction } from 'express';
 import { CryptoService } from 'src/helpers/aes.helpers';
 import { JwtService } from '@nestjs/jwt';
+import { BowlFishSecret } from 'src/secret/unknown.secret';
 
 @Injectable()
 export class JwtValidator implements NestMiddleware {
@@ -25,12 +26,11 @@ export class JwtValidator implements NestMiddleware {
     }
 
     const cookie = req.cookies.token;
-    console.log(cookie);
     const token = cookie.split(' ')[1];
     const decryptedToken = this.AesHelper.decrypt(token);
-    const verify = await this.jwtService.verify(decryptedToken);
+    const verify = await this.jwtService.verify(decryptedToken,{ secret: BowlFishSecret.JWT_SECRET});
 
-    if (!verify || verify.iat < Date.now()) {
+    if (!verify || verify.iat > Date.now()) {
       throw new BadRequestException({
         message: 'Session Expired Please Login',
       });

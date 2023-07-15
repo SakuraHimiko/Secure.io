@@ -20,7 +20,8 @@ export class NewsFeeedController {
   @Get()
   @Render('newsfeed')
   getData() {
-    return this.newsFeeedService.findAll();
+    const flag = Math.random().toString(36).substring(2, 19);
+    return { flag: flag};
   }
   @Post()
   create(@Body() createNewsFeeedDto: CreateNewsFeeedDto) {

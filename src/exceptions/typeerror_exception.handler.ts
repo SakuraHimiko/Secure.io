@@ -23,11 +23,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         err_message: 'Bro You need to SignUp or SignIn',
         error: `Possible Error: ${exception.message}`,
       });
-    } else {
-      return response.json({
-        err_message: exception.message,
-        failed_login: true,
-      });
     }
     return response.render('error', {
       err_message: 'Why You Break it?Something bad will happen',
