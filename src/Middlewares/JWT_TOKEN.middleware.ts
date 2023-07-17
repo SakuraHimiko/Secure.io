@@ -35,6 +35,10 @@ export class JwtValidator implements NestMiddleware {
         message: 'Session Expired Please Login',
       });
     }
+    const name = this.AesHelper.decrypt(verify?.name);
+    req.user = {
+      name
+    };
     next();
   }
 }

@@ -57,7 +57,7 @@ export class IoUserService {
   async verifyLoginUser(userinfo) {
     const user = await this.Io_UserSchema.findOne({
       user_name: userinfo.userName,
-    });
+    }).select('+user_password');
     if (!user)
       return {
         failed_true: true,
@@ -77,6 +77,7 @@ export class IoUserService {
     }
 
     const token = await this.jwtService.signAsync({
+      id: user.id,
       name: this.AesHasher.encrypt(user.user_name),
     });
     const encryptedToken = this.AesHasher.encrypt(token);
@@ -86,5 +87,9 @@ export class IoUserService {
       login_message:
         'Wow Senpai.You did it!Authenication is success!I will redirect you to the main page.Sayonara!',
     };
+  }
+  async findUserProfile(uname: string) {
+    const user = await this.Io_UserSchema.findOne({ user_name: uname })
+    return user;
   }
 }

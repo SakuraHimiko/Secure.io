@@ -9,7 +9,6 @@ import { Argon2Interface } from 'src/helpers/argon.helper';
 import { JwtService } from '@nestjs/jwt';
 import { CreateAdminDto } from './dto/create_admin.dto';
 import { IO_Users } from 'src/models/user.schema';
-import { SignUpDto } from 'src/io_user/dto/signup.dto';
 import { Movie } from 'src/models/movie.schema';
 import { MovieDTO } from 'src/dto/movie.dto';
 

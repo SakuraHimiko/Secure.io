@@ -6,8 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  Sse,
-  Res,
+  Request,
   Render,
 } from '@nestjs/common';
 import { NewsFeeedService } from './news_feeed.service';
@@ -20,17 +19,19 @@ export class NewsFeeedController {
   @Get()
   @Render('newsfeed')
   getData() {
-    const flag = Math.random().toString(36).substring(2, 19);
-    return { flag: flag};
+    const data = this.newsFeeedService.findAll();
+    return {flag: 'yellow'};
   }
   @Post()
-  create(@Body() createNewsFeeedDto: CreateNewsFeeedDto) {
-    return this.newsFeeedService.create(createNewsFeeedDto);
+  findUsers(@Body() createNewsFeeedDto: CreateNewsFeeedDto) {
+    return this.newsFeeedService.findUsers(createNewsFeeedDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.newsFeeedService.findOne(+id);
+  @Get('me')
+  @Render('profile')
+  async getUserProfile(@Request() req:any) {
+    const userInfo =  await this.newsFeeedService.getUserProfile(req.user.name);
+    return userInfo;
   }
 
   @Patch(':id')

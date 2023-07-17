@@ -24,6 +24,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         error: `Possible Error: ${exception.message}`,
       });
     }
+    console.log(exception);
     return response.render('error', {
       err_message: 'Why You Break it?Something bad will happen',
       error: `Possible Error: ${exception.message}`,

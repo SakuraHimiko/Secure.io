@@ -32,6 +32,7 @@ export class IoUserController {
     @Body() body: SignUpDto,
     @Res({ passthrough: true }) response: any,
   ) {
+    
     const info = await this.io_UsersService.saveUserToDatabase(body);
     response.cookie('token', info.token);
     return info;

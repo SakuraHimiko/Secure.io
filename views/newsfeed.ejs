@@ -1,36 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css"> -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="./css/app.css" />
-    <link rel="shortcut icon" href="/img/lum.jpg" type="image/x-icon" />
-    <title>Movie.io</title>
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/app.css" />
+  <link rel="shortcut icon" href="/img/lum.jpg" type="image/x-icon" />
+  <title>Movie.io</title>
+</head>
+
+<body class="h-100 vh-100">
+  <%- include('navbar') %>
     <div class="container">
-      <div class="row">
-        <div class="col-8">
-          <div class="row">
-            <div class="col-12">
-              <div>
-                <h3>I am Newsfeed</h3>
-                <span>Flag</span><code> <%= flag %> </code>
-                
-              </div>
+      <div class="row flex-column p-3">
+        <div class=" p-3 shadow-sm mb-4">
+          <div class=" d-flex rounded-top">
+            <div class="">
+              <img src="/user/default-1.jpeg" class="rounded-circle" style="width: 50px;" alt="">
+            </div>
+            <div class="ms-3">
+              <p class=" mb-0">Rizan Tokumo</p>
+              <span class="" style="font-size: 15px;">4h ago</span>
             </div>
           </div>
+          <hr>
+          <div class="">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt dolores, porro culpa eveniet facilis
+              omnis fugiat fuga animi excepturi tempore, fugit necessitatibus molestiae, impedit nulla atque saepe dicta
+              doloribus officia!</p>
+          </div>
+          <div class=" d-flex justify-content-start mb-2">
+            <div class=" d-flex flex-row-reverse">
+              <span class="" style=" margin-left: -5px; font-size: 20px;">&#127770</span>
+              <span class="" style=" margin-left: -5px; font-size: 20px;">&#128127</span>
+              <span class="" style=" margin-left: -5px; font-size: 20px;">&#128125</span>
+            </div>
+            <div class=" align-items-center">
+              <p class="mb-0 ms-3">Rize and 403 others</p>
+            </div>
+          </div>
+          <div class=" d-flex w-100 justify-content-between border-2 p-3 border-dark border-top border-bottom">
+            <button class=" border-0 bg-transparent flex-grow-1"> React</button>
+            <button class=" border-0 bg-transparent flex-grow-1 ms-2">Comment</button>
+            <button class=" border-0 bg-transparent flex-grow-1 ms-2">Share</button>
+          </div>
         </div>
-        <div class="col-3">
+        <div class=" p-3 shadow-sm mb-4">
+          <div class=" d-flex rounded-top">
+            <div class="">
+              <img src="/user/default-1.jpeg" class="rounded-circle" style="width: 50px;" alt="">
+            </div>
+            <div class="ms-3">
+              <p class=" mb-0">Rizan Tokumo</p>
+              <span class="" style="font-size: 15px;">4h ago</span>
+            </div>
+          </div>
+          <hr>
+          <div class="">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt dolores, porro culpa eveniet facilis
+              omnis fugiat fuga animi excepturi tempore, fugit necessitatibus molestiae, impedit nulla atque saepe dicta
+              doloribus officia!</p>
+          </div>
+          <div class=" d-flex justify-content-start mb-2">
+            <div class=" d-flex flex-row-reverse">
+              <span class="" style=" margin-left: -5px; font-size: 20px;">&#127770</span>
+              <span class="" style=" margin-left: -5px; font-size: 20px;">&#128125</span>
+              <span class="" style=" margin-left: -5px; font-size: 20px;">&#128127</span>
+            </div>
+            <div class=" align-items-center">
+              <p class="mb-0 ms-3">Rize and 403 others</p>
+            </div>
+          </div>
+          <div class=" d-flex w-100 justify-content-between border-2 p-3 border-dark border-top border-bottom">
+            <button class=" border-0 bg-transparent flex-grow-1"> React</button>
+            <button class=" border-0 bg-transparent flex-grow-1 ms-2">Comment</button>
+            <button class=" border-0 bg-transparent flex-grow-1 ms-2">Share</button>
+          </div>
         </div>
       </div>
     </div>
-  </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
-</html>
+    <%- include('footer') %>

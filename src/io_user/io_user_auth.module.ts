@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { IoUserController } from './io_user_auth.controller';
 import { IoUserService } from './io_user_auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -20,7 +20,7 @@ import { ResponseSender } from 'src/helpers/response.helper';
           useFactory: () => {
             const schema = IO_UsersSchema;
             schema.pre(/^find/, function () {
-              console.log('Hello from pre save');
+            
             });
             return schema;
           },

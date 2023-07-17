@@ -17,6 +17,7 @@ const messages = [
   'Uhhhh Execuse Me?',
   "このバカ！>_< <img src='/img/pout-girl.gif' width='40px' alt='i hate you'>",
 ];
+console.log('working');
 let messageNum = Math.round(Math.random() * messages.length);
 const assistants = [
   {
@@ -47,7 +48,7 @@ userBtn.addEventListener('click', async (e) => {
     bsToast.show();
   }
   e.preventDefault();
-  const failed = await fetch('/io-user/signin', {
+  const failed = await fetch('http://127.0.0.1:3000/io-user/signin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

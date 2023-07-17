@@ -91,7 +91,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
       useClass: BadRequestExceptionHandler,
     },
     AppService,
-    CryptoService,
+    CryptoService
   ],
 })
 export class AppModule implements NestModule {

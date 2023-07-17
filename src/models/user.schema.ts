@@ -1,6 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({
+  toJSON: {
+    virtuals: true,
+  },
+})
 export class IO_Users {
   @Prop({ required: true })
   user_f_name: string;
@@ -11,10 +15,10 @@ export class IO_Users {
   @Prop({ required: true, unique: true })
   user_name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, select: false })
   user_password: string;
 
-  @Prop({ default: `user/default-${Math.floor(Math.random() * 5)}.jpeg` })
+  @Prop({ default: `/user/default-${Math.floor(Math.random() * 5)}.jpeg` })
   user_profile: string;
 
   @Prop()
@@ -36,3 +40,7 @@ export class IO_Users {
   active: boolean;
 }
 export const IO_UsersSchema = SchemaFactory.createForClass(IO_Users);
+
+IO_UsersSchema.virtual('fullname').get(function (this: IO_Users) {
+  return `${this.user_f_name} ${this.user_l_name}`;
+});

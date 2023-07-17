@@ -4,21 +4,30 @@ import { UpdateNewsFeeedDto } from './dto/update-news_feeed.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Movie } from 'src/models/movie.schema';
 import { Model } from 'mongoose';
+import { IO_Users } from 'src/models/user.schema';
+import { CryptoService } from 'src/helpers/aes.helpers';
+import { IoUserService } from 'src/io_user/io_user_auth.service';
 
 @Injectable()
 export class NewsFeeedService {
-  constructor() // @InjectModel(Movie.name, 'movie_io') private movieModel: Model<Movie>,
-  {}
-  create(createNewsFeeedDto: CreateNewsFeeedDto) {
+  constructor(
+    @InjectModel(IO_Users.name, 'movie_io')
+    private Io_UserSchema: Model<IO_Users>,
+    private readonly AesHelper: CryptoService, 
+    private readonly UserService: IoUserService,
+  ) {}
+  findUsers(createNewsFeeedDto: CreateNewsFeeedDto) {
     return 'This action adds a new newsFeeed';
   }
 
-  findAll() {
-    return `This action returns all newsFeeed`;
+  async findAll():Promise<IO_Users[]> {
+    const data = await this.Io_UserSchema.find();
+    return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} newsFeeed`;
+  async getUserProfile(uname: string) {
+    const returnedUser = await this.UserService.findUserProfile(uname);
+    return returnedUser;
   }
 
   update(id: number, updateNewsFeeedDto: UpdateNewsFeeedDto) {
